@@ -9,6 +9,23 @@ function createChatBox(html,classes){
 
 }
 
+const Api_Url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBhPUd22IHeSvRmZltw3g6RiGMiO93HLd4"
+
+async function generateResponse(aiChatBox) {
+
+    let RequestOption = {
+        Method: "POST ",
+        headers: {'Content-Type':'application/json'},
+    }
+    let response = fetch(Api_Url,RequestOption)
+    
+}
+
+let user= {
+    data: null,
+
+}
+
 function handelechatResponse(message) {
     let html = `<img src="user.jpg" alt="" id="UserImage" width="50" height="50">
 
@@ -29,6 +46,7 @@ function handelechatResponse(message) {
             </div>`
             let aiChatBox=createChatBox(html,"ai-chat-box")
             chatContainer.appendChild(aiChatBox)
+            generateResponse(aiChatBox)
 
     },600)
 }
