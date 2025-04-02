@@ -16,21 +16,35 @@ async function generateResponse(aiChatBox) {
     let RequestOption = {
         Method: "POST ",
         headers: {'Content-Type':'application/json'},
+        body:JSON.stringify({
+
+            "contents": [
+      {
+        "parts": [
+          {
+            "text": user.data}]}
+]
+    }
+  )
     }
     let response = fetch(Api_Url,RequestOption)
+
     
 }
+
 
 let user= {
     data: null,
 
 }
 
+
 function handelechatResponse(message) {
+    user.data= message
     let html = `<img src="user.jpg" alt="" id="UserImage" width="50" height="50">
 
     <div class="user-chat-area">
-    ${message}         
+    ${user.data}         
     </div>`
     prompt.value = ""
     let userChatBox = createChatBox(html,"user-chat-box")
