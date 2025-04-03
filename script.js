@@ -1,74 +1,74 @@
-let prompt = document.querySelector("#prompt")
-let chatContainer = document.querySelector(".chat-container")
+let prompt = document.querySelector("#prompt");
+let chatContainer = document.querySelector(".chat-container");
 
-function createChatBox(html,classes){
-    let div = document.createElement("div")
-    div.innerHTML = html
-    div.classList.add(classes)
-    return div
-
+function createChatBox(html, classes) {
+  let div = document.createElement("div");
+  div.innerHTML = html;
+  div.classList.add(classes);
+  return div;
 }
 
-const Api_Url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBhPUd22IHeSvRmZltw3g6RiGMiO93HLd4"
+const Api_Url =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBhPUd22IHeSvRmZltw3g6RiGMiO93HLd4";
 
+let user = {
+  data: null,
+};
 async function generateResponse(aiChatBox) {
-
-    let RequestOption = {
-        Method: "POST ",
-        headers: {'Content-Type':'application/json'},
-        body:JSON.stringify({
-
-            "contents": [
-      {
-        "parts": [
-          {
-            "text": user.data}]}
-]
-    }
-  )
-    }
-    let response = fetch(Api_Url,RequestOption)
-
-    
+  let RequestOption = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            {
+              text: user.data,
+            },
+          ],
+        },
+      ],
+    }),
+  };
+  try {
+    let response = await fetch(Api_Url, RequestOption);
+    let data = await response.json();
+    let apiResponse = data.candidate[0].content.parts[0].text
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .trim();
+    console.log(apiResponse);
+  } catch (error) {
+    console.log(error);
+  }
 }
-
-
-let user= {
-    data: null,
-
-}
-
 
 function handelechatResponse(message) {
-    user.data= message
-    let html = `<img src="user.jpg" alt="" id="UserImage" width="50" height="50">
+  user.data = message;
+  let html = `<img src="user.jpg" alt="" id="UserImage" width="50" height="50">
 
     <div class="user-chat-area">
     ${user.data}         
-    </div>`
-    prompt.value = ""
-    let userChatBox = createChatBox(html,"user-chat-box")
-    chatContainer.appendChild(userChatBox)
+    </div>`;
+  prompt.value = "";
+  let userChatBox = createChatBox(html, "user-chat-box");
+  chatContainer.appendChild(userChatBox);
 
-    setTimeout(()=>{
-        let html = `            <img src="bot.jpg" alt="" id="aiImage" width="50" height="40">
+  setTimeout(() => {
+    let html = `            <img src="bot.jpg" alt="" id="aiImage" width="50" height="40">
 
             <div class="ai-chat-area">
                    <img src="loading.gif" alt=""   class ="load" width="50px">
             
         
-            </div>`
-            let aiChatBox=createChatBox(html,"ai-chat-box")
-            chatContainer.appendChild(aiChatBox)
-            generateResponse(aiChatBox)
-
-    },600)
+            </div>`;
+    let aiChatBox = createChatBox(html, "ai-chat-box");
+    chatContainer.appendChild(aiChatBox);
+    generateResponse(aiChatBox);
+  }, 600);
 }
 
 prompt.addEventListener("keydown", (e) => {
-    if (e.key == "Enter") {
-        handelechatResponse(prompt.value)
-
-
-    }
-})
+  if (e.key == "Enter") {
+    handelechatResponse(prompt.value);
+  }
+});
