@@ -15,6 +15,7 @@ let user = {
   data: null,
 };
 async function generateResponse(aiChatBox) {
+  let text = aiChatBox.querySelector(".ai-chat-area");
   let RequestOption = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -36,8 +37,12 @@ async function generateResponse(aiChatBox) {
     let apiResponse = data.candidate[0].content.parts[0].text
       .replace(/\*\*(.*?)\*\*/g, "$1")
       .trim();
+
+    text.innerHTML = apiResponse;
     console.log(apiResponse);
-  } catch (error) {
+
+  } 
+  catch (error) {
     console.log(error);
   }
 }
