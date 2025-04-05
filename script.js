@@ -9,7 +9,7 @@ function createChatBox(html, classes) {
 }
 
 const Api_Url =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBhPUd22IHeSvRmZltw3g6RiGMiO93HLd4";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDDd34NJpU5_5m0rHiU9n8luKjBcZAMotU";
 
 let user = {
   data: null,
@@ -34,15 +34,13 @@ async function generateResponse(aiChatBox) {
   try {
     let response = await fetch(Api_Url, RequestOption);
     let data = await response.json();
-    let apiResponse = data.candidate[0].content.parts[0].text
-      .replace(/\*\*(.*?)\*\*/g, "$1")
-      .trim();
+    let apiResponse = data.candidate[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g , "$1").trim();
+
+    // console.log(data);
 
     text.innerHTML = apiResponse;
     console.log(apiResponse);
-
-  } 
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -59,12 +57,10 @@ function handelechatResponse(message) {
   chatContainer.appendChild(userChatBox);
 
   setTimeout(() => {
-    let html = `            <img src="bot.jpg" alt="" id="aiImage" width="50" height="40">
+    let html = ` <img src="bot.jpg" alt="" id="aiImage" width="50" height="40">
 
             <div class="ai-chat-area">
                    <img src="loading.gif" alt=""   class ="load" width="50px">
-            
-        
             </div>`;
     let aiChatBox = createChatBox(html, "ai-chat-box");
     chatContainer.appendChild(aiChatBox);
