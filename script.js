@@ -62,12 +62,16 @@ function handelechatResponse(userMessage) {
   let html = `<img src="user.jpg" alt="" id="UserImage" width="50" height="50">
 
     <div class="user-chat-area">
-    ${user.message}         
-    $(user.file.data? `<img src ="data:${user.file.mime_type} ;
-    base64,${user.file.data}" class ="chooseimg"/>`:"")
+    ${user.message}       
+
+    ${user.file.data? `<img src ="data:${user.file.mime_type};
+
+    base64,${user.file.data}" class ="chooseimg"/>`:""}
     
-    </div> `;
+    </div>` ;
+
   prompt.value = "";
+
   let userChatBox = createChatBox(html, "user-chat-box");
   chatContainer.appendChild(userChatBox);
   chatContainer.scrollTo({
