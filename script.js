@@ -26,12 +26,13 @@ async function generateResponse(aiChatBox) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      contents: [
+      "contents": [
         {
-          parts: [
+         "parts": [
             {
-              "text": user.message
-            },(user.file.data ? [{ "inline_data": user.file }] : [])
+              "text": user.message,
+            },
+            (user.file.data ? [{ "inline_data": user.file }] : []),
           ],
         },
       ],
@@ -65,10 +66,7 @@ function handelechatResponse(userMessage) {
     ${user.message}       
 
     ${
-      user.file.data
-        ? `<img src ="data:${user.file.mime_type};
-
-    base64,${user.file.data}" class ="chooseimg"/>`
+      user.file.data? `<img src ="data:${user.file.mime_type};base64,${user.file.data}" class ="chooseimg"   style="max-width: 200px; border-radius: 10px; margin-top: 10px; />`
         : ""
     }
     
@@ -103,18 +101,19 @@ prompt.addEventListener("keydown", (e) => {
 imageinput.addEventListener("change", () => {
   const file = imageinput.files[0];
   if (!file) return;
+
   let reader = new FileReader();
   reader.onload = (e) => {
     let base64string = e.target.result.split(",")[1];
 
     user.file = {
-      mime_type: type,
+      mime_type: file.type,
       data: base64string,
     };
   };
   reader.readAsDataURL(file);
-});
+})
 
 imagebtn.addEventListener("click", () => {
   imagebtn.querySelector("input").click();
-});
+})
