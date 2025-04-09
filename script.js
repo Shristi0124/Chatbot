@@ -1,6 +1,8 @@
 let prompt = document.querySelector("#prompt");
+let submitbtn = document.querySelector("#submit");
 let chatContainer = document.querySelector(".chat-container");
 let imagebtn = document.querySelector("#image");
+let image = document.querySelector("#image img");
 let imageinput = document.querySelector("#image input");
 
 function createChatBox(html, classes) {
@@ -26,13 +28,13 @@ async function generateResponse(aiChatBox) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      "contents": [
+      contents: [
         {
-         "parts": [
+          parts: [
             {
-              "text": user.message,
+              text: user.message,
             },
-            (user.file.data ? [{ "inline_data": user.file }] : []),
+            user.file.data ? [{ inline_data: user.file }] : [],
           ],
         },
       ],
@@ -55,18 +57,22 @@ async function generateResponse(aiChatBox) {
       top: chatContainer.scrollHeight,
       behavior: "smooth",
     });
+    image.src='img.svg'
+    image.classList.remove("choose")
+    user.file={}
   }
 }
 
 function handelechatResponse(userMessage) {
   user.message = userMessage;
-  let html = `<img src="user.jpg" alt="" id="UserImage" width="50" height="50">
+  let html = `<img src="user.jpg" alt="" id="UserImage" width="8%" height="50">
 
     <div class="user-chat-area">
     ${user.message}       
 
     ${
-      user.file.data? `<img src ="data:${user.file.mime_type};base64,${user.file.data}" class ="chooseimg"   style="max-width: 200px; border-radius: 10px; margin-top: 10px; />`
+      user.file.data
+        ? `<img src ="data:${user.file.mime_type};base64,${user.file.data}" class ="chooseimg"  />`
         : ""
     }
     
@@ -82,7 +88,7 @@ function handelechatResponse(userMessage) {
   });
 
   setTimeout(() => {
-    let html = ` <img src="bot.jpg" alt="" id="aiImage" width="50" height="40">
+    let html = ` <img src="bot.jpg" alt="" id="aiImage" width="10%" height="40">
 
             <div class="ai-chat-area">
                    <img src="loading.gif" alt=""   class ="load" width="50px">
@@ -98,6 +104,12 @@ prompt.addEventListener("keydown", (e) => {
     handelechatResponse(prompt.value);
   }
 });
+
+submitbtn.addEventListener("click",()=>{
+  handelechatResponse(prompt.value);
+
+})
+
 imageinput.addEventListener("change", () => {
   const file = imageinput.files[0];
   if (!file) return;
@@ -110,10 +122,13 @@ imageinput.addEventListener("change", () => {
       mime_type: file.type,
       data: base64string,
     };
+    image.src=`data:${user.file.mime_type};base64,${user.file.data}`
+    image.classList.add("choose")
+   
   };
   reader.readAsDataURL(file);
-})
+});
 
 imagebtn.addEventListener("click", () => {
   imagebtn.querySelector("input").click();
-})
+});
