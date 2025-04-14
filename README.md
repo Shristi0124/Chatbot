@@ -90,7 +90,7 @@ node server.js
 **Shristi**  
 📍 Dehradun, India  
 📧 shristishristi59@gmail.com  
-🔗 [LinkedIn](linkedin.com/in/shristi-51826b249)  
+🔗 [LinkedIn]([linkedin.com/in/shristi-51826b249](https://www.linkedin.com/in/shristi-51826b249/?trk=opento_sprofile_details))  
 💻 [GitHub](https://github.com/Shristi0124)
 
 ---
