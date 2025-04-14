@@ -90,7 +90,7 @@ node server.js
 **Shristi**  
 📍 Dehradun, India  
 📧 shristishristi59@gmail.com  
-🔗 [LinkedIn]([linkedin.com/in/shristi-51826b249](https://www.linkedin.com/in/shristi-51826b249/?trk=opento_sprofile_details))  
+🔗 [LinkedIn](https://www.linkedin.com/in/shristi-51826b249/)  
 💻 [GitHub](https://github.com/Shristi0124)
 
 ---
@@ -104,8 +104,3 @@ Licensed under the [MIT License](LICENSE).
 ## ⭐️ Show Your Support
 
 If you like this project, consider giving it a ⭐ on [GitHub](https://github.com/Shristi0124/gpt2-chatbot)!
-```
-
----
-
-Would you like me to help generate a **GitHub project thumbnail image**, **custom badge icons**, or a **demo video script** next?
